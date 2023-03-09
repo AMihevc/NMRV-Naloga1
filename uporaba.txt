@@ -1,0 +1,6 @@
+Na linux: 
+Najprej aktiviraj python okolje, ki se nahaja v NMRV-ACVM mapi
+ukaz: source nmrv-env/bin/activate
+Če v VSCode še nisi dodal tega interpreterja ga dodaj in uporabi
+
+v mani.py so naložene slike iz tam pol uporabljaš različne metode in jih prikazuješ

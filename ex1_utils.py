@@ -2,6 +2,7 @@ import math
 
 import numpy as np
 import cv2
+import matplotlib.pyplot as plot
 from matplotlib.colors import hsv_to_rgb
 
 
@@ -62,3 +63,37 @@ def rotate_image(img, angle):
     rot_mat = cv2.getRotationMatrix2D(center, angle, 1.0)
     rotated = cv2.warpAffine(img, rot_mat, img.shape[1::-1], flags=cv2.INTER_LINEAR)
     return rotated
+
+#plot 2 images side by side
+def plot_images(img1, img2, cmap=None):
+    plot.subplot(1,2,1)
+    plot.imshow(img1, cmap=cmap)
+    plot.subplot(1,2,2)
+    plot.imshow(img2, cmap=cmap)
+    plot.show()
+
+def calc_derivatives (im1 , im2): 
+    #im1 - first image matrix (grayscale)
+    #im2 - second image matrix (grayscale)
+
+    #TODO if needed implement custom sigma values smoothing and derivates
+
+    #from slides opticalFlow1: temporal derivative is aproximated by the difference between the 2 images 
+    #slides 48 improvments:  apply a small Gaussian to improve the results
+    it = gausssmooth((im2 - im1), sigma=1)
+
+    #from slides opticalFlow1: spatial derivatives are aproximated by convolution 
+
+    #ix, iy = gaussderiv(im1, 0.4)
+
+    #slides 48 improvments: avrage spatila derivatev in frame t and t+1 !mathematically incorect but could help!
+
+    #bigger sigma -> smoother edges but less details.
+    #sigma 0.6 from experiments
+    #ix, iy = gaussderiv(np.divide(im1+im2,2) , sigma=0.6) 
+ 
+    #applying an additional gaussian smoothing to the derivatives to reduce noise
+    ix, iy = gaussderiv(gausssmooth( np.divide(im1+im2,2), sigma=0.6) , sigma=0.6)     
+    
+
+    return ix, iy, it

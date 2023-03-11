@@ -1,11 +1,8 @@
 import cv2
 import matplotlib.pyplot as plot
 import numpy as np
-
 from ex1_utils import *
-from lucas_Kanade import lucaskanade, calc_derivatives
-
-#function to plot the images
+from lucas_Kanade import lucaskanade
 
 
 #function to open and convert 2 images to grayscale
@@ -21,16 +18,16 @@ def open_image(path_to_image1, path_to_image2):
 # ========================= END OF FUNCTIONS =================================
 
 # open 2 images and convert them to grayscale
-path_to_image1 = 'lab2/001.jpg'
-path_to_image2 = 'lab2/002.jpg'
+# path_to_image1 = 'lab2/001.jpg'
+# path_to_image2 = 'lab2/002.jpg'
 
-img1_grey, img2_grey = open_image(path_to_image1, path_to_image2)
+# img1_grey, img2_grey = open_image(path_to_image1, path_to_image2)
 
-#plot the images
-plot_images(img1_grey, img2_grey, cmap='gray')
+# #plot the images
+# plot_images(img1_grey, img2_grey, cmap='gray')
 
 
-# #for testing we begin with 2 random noise images just copy of eachother with a rotation
+#for testing we begin with 2 random noise images just copy of eachother with a rotation
 # rnd_img1 = np.random.randint(0, 150, size=(150, 150, 3), dtype=np.uint8)
 # rnd_img2 = rnd_img1.copy()
 # rnd_img2 = rotate_image(rnd_img2, 1)
@@ -42,10 +39,26 @@ plot_images(img1_grey, img2_grey, cmap='gray')
 # #plot the images
 # plot_images(rnd_img1, rnd_img2, cmap='gray')
 
+rnd_img1 = np.random.rand(200, 200).astype(np.float32)
+rnd_img2 = rnd_img1.copy()
+rnd_img2 = rotate_image(rnd_img2, -1)
 
-#TODO : call lucaskanade function on the images 
+# normalise 
+rnd_img1 = rnd_img1 / 255
+rnd_img2 = rnd_img2 / 255
 
-#lucaskanade(img1_grey, img2_grey, 8)
+
+u_lk , v_lk = lucaskanade(rnd_img1, rnd_img2, 3)
+
+fig1, ((ax_11, ax_12), (ax_21, ax_22)) = plot.subplots(2, 2)
+
+ax_11.imshow(rnd_img1)
+ax_11.set_title("Prva slika")
+ax_12.imshow(rnd_img2)
+ax_12.set_title("Naslednja slika")
+
+show_flow(u_lk, v_lk, ax_21)
+plot.show()
 
 #TODO : display the result
 #TODO : save the result

@@ -27,19 +27,18 @@ def lucaskanade ( im1 , im2 , N=3 ):
     # determinant of a covariance matrix 
     d = np.subtract( np.multiply(ix_x, iy_y) , np.multiply(ix_y, ix_y))
 
-    #some elements are 0 which meses up the division 
+    # some elements are 0 which meses up the division 
     # add some small number to all elements so there is no division by zero
     d += 1e-5 
     
-    #zaznamek nism zih za te formule morta met še minus uspredi 
-    u = np.divide(
+    u = -np.divide(
             np.subtract(
                 np.multiply(iy_y, ix_t), 
                 np.multiply(ix_y, iy_t)
             ),
         d)
     
-    v = np.divide(
+    v = -np.divide(
         np.subtract(
             np.multiply(ix_x, iy_t), 
             np.multiply(ix_y, ix_t)

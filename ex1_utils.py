@@ -98,21 +98,37 @@ def calc_derivatives (im1 , im2):
 
     return ix, iy, it
 
-def plot_flow(u_vector, v_vector, img1, img2):
+def plot_flow(u_vector, v_vector, img1, img2, kateri, filename='test', save=False ):
     #u_vector - x component of the flow vector
     #v_vector - y component of the flow vector
     #img1 - first image matrix (grayscale)
     #img2 - second image matrix (grayscale)
+    #kateri - lucaskanade or hornschunck
+    #filename - save the file as this name 
+    #save - save file or dont save the file
 
-    # plot a 2x2 plot where the top row displays img1 and img2 bottom left show_flow field, bottom right is show_flow angle_magnitude
-    fig1, ax = plot.subplots(2, 2)
+    # plot a 2x2 plot where the top row displays img1 and img2 bottom left show_flow field, bottom right is show_flow angle
+    fig, ax = plot.subplots(2, 2)
 
-    ax[0][0].imshow(img1, cmap='gray')
+    ax[0][0].imshow(img1)
     ax[0][0].set_title("Prva slika")
-    ax[0][1].imshow(img2, cmap='gray')
+    ax[0][1].imshow(img2)
     ax[0][1].set_title("Naslednja slika")
 
-    show_flow(u_vector, v_vector, ax[1][0])
-    show_flow(u_vector, v_vector, ax[1][1], type='angle', set_aspect=True)
+    show_flow(u_vector, v_vector, ax[1][0], type='field', set_aspect=True)
+    show_flow(u_vector, v_vector, ax[1][1], type='angle', set_aspect=False)
+
+    fig.tight_layout()
+
+    #kako poimenovati plot
+    if kateri == 'lucaskanade':
+        fig.suptitle ('Lucas-Kanade optical flow')
+    elif kateri == 'hornschunck':
+        fig.suptitle ('Lucas-Kanade optical flow')
+    else:
+        fig.suptitle ('Figure 1')
+
+    if save: 
+        fig.savefig(f'./plots/{filename}.png', bbox_inches='tight')
         
     plot.show()

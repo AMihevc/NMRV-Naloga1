@@ -124,7 +124,7 @@ def plot_flow(u_vector, v_vector, img1, img2, kateri, filename='test', save=Fals
     if kateri == 'lk':
         fig.suptitle ('Lucas-Kanade optical flow')
     elif kateri == 'hs':
-        fig.suptitle ('Lucas-Kanade optical flow')
+        fig.suptitle ('Horn-Schunck optical flow')
     else:
         fig.suptitle ('Figure 1')
 

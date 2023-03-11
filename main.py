@@ -43,10 +43,10 @@ rnd_img2 = rnd_img2 / 255
 
 #TODO: Horn-Schunck
 
-#TODO call Horn-Schunck
-u_hs, v_hs = hornschuck(rnd_img1, rnd_img2, 3, lmbd=1)
+#call Horn-Schunck
+u_hs, v_hs = hornschuck(rnd_img1, rnd_img2, 10000, lmbd=0.5)
 
-#TODO dispaly Horn-Schunck flow and the images
+#dispaly Horn-Schunck flow and the images
 plot_flow(u_hs, v_hs, rnd_img1, rnd_img2, kateri='hs')
 
 #========== TESTING ===========

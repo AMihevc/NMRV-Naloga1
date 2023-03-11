@@ -41,35 +41,25 @@ def open_image(path_to_image1, path_to_image2):
 
 rnd_img1 = np.random.rand(200, 200).astype(np.float32)
 rnd_img2 = rnd_img1.copy()
-rnd_img2 = rotate_image(rnd_img2, -1)
+rnd_img2 = rotate_image(rnd_img2, 1)
 
-# normalise 
+# normalise the image
 rnd_img1 = rnd_img1 / 255
 rnd_img2 = rnd_img2 / 255
 
-
+#call lucas-kanade
 u_lk , v_lk = lucaskanade(rnd_img1, rnd_img2, 3)
 
-fig1, ((ax_11, ax_12), (ax_21, ax_22)) = plot.subplots(2, 2)
+#display lucas-kanade flow and the images
+plot_flow(u_lk, v_lk, rnd_img1, rnd_img2)
 
-ax_11.imshow(rnd_img1)
-ax_11.set_title("Prva slika")
-ax_12.imshow(rnd_img2)
-ax_12.set_title("Naslednja slika")
+#TODO: Horn-Schunck
 
-show_flow(u_lk, v_lk, ax_21)
-plot.show()
+#TODO call Horn-Schunck
 
-#TODO : display the result
-#TODO : save the result
+#TODO dispaly Horn-Schunck flow and the images
 
+#TODO save the plots of both images
+#to lahko mogoče še ko displayaš najprej lk potem hs
 
 #========== TESTING ===========
-
-# ix, iy, it = calc_derivatives(img1_grey, img2_grey)
-
-# plot_images(ix, iy, cmap='gray')
-
-#plot just 1 image for testing
-# plot.imshow(it, cmap='gray')
-# plot.show()

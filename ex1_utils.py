@@ -97,3 +97,22 @@ def calc_derivatives (im1 , im2):
     
 
     return ix, iy, it
+
+def plot_flow(u_vector, v_vector, img1, img2):
+    #u_vector - x component of the flow vector
+    #v_vector - y component of the flow vector
+    #img1 - first image matrix (grayscale)
+    #img2 - second image matrix (grayscale)
+
+    # plot a 2x2 plot where the top row displays img1 and img2 bottom left show_flow field, bottom right is show_flow angle_magnitude
+    fig1, ax = plot.subplots(2, 2)
+
+    ax[0][0].imshow(img1, cmap='gray')
+    ax[0][0].set_title("Prva slika")
+    ax[0][1].imshow(img2, cmap='gray')
+    ax[0][1].set_title("Naslednja slika")
+
+    show_flow(u_vector, v_vector, ax[1][0])
+    show_flow(u_vector, v_vector, ax[1][1], type='angle', set_aspect=True)
+        
+    plot.show()

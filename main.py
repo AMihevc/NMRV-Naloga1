@@ -3,7 +3,7 @@ import matplotlib.pyplot as plot
 import numpy as np
 from ex1_utils import *
 from lucas_Kanade import lucaskanade
-
+from horn_Schunck import hornschuck
 
 #function to open and convert 2 images to grayscale
 def open_image(path_to_image1, path_to_image2):
@@ -35,16 +35,18 @@ rnd_img2 = rotate_image(rnd_img2, -1)
 rnd_img1 = rnd_img1 / 255
 rnd_img2 = rnd_img2 / 255
 
-#call lucas-kanade
-u_lk , v_lk = lucaskanade(rnd_img1, rnd_img2, 3)
+# #call lucas-kanade
+# u_lk , v_lk = lucaskanade(rnd_img1, rnd_img2, 3)
 
-#display lucas-kanade flow and the images
-plot_flow(u_lk, v_lk, rnd_img1, rnd_img2, kateri='lucaskanade')
+# #display lucas-kanade flow and the images
+# plot_flow(u_lk, v_lk, rnd_img1, rnd_img2, kateri='lk')
 
 #TODO: Horn-Schunck
 
 #TODO call Horn-Schunck
+u_hs, v_hs = hornschuck(rnd_img1, rnd_img2, 3, lmbd=1)
 
 #TODO dispaly Horn-Schunck flow and the images
+plot_flow(u_hs, v_hs, rnd_img1, rnd_img2, kateri='hs')
 
 #========== TESTING ===========

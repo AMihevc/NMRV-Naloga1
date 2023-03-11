@@ -121,9 +121,9 @@ def plot_flow(u_vector, v_vector, img1, img2, kateri, filename='test', save=Fals
     fig.tight_layout()
 
     #kako poimenovati plot
-    if kateri == 'lucaskanade':
+    if kateri == 'lk':
         fig.suptitle ('Lucas-Kanade optical flow')
-    elif kateri == 'hornschunck':
+    elif kateri == 'hs':
         fig.suptitle ('Lucas-Kanade optical flow')
     else:
         fig.suptitle ('Figure 1')

@@ -14,7 +14,7 @@ def lucaskanade ( im1 , im2 , N=3 ):
 
     # components of u, v and D 
     # convolution with kernal of size NxN 
-    jedroSosedov = np.ones((N, N), dtype=np.float32) / (N * N)
+    jedroSosedov = np.ones((N, N), dtype=np.float32)
 
     ix_x = convolve2d(np.multiply(ix, ix), jedroSosedov, mode='same')
     iy_y = convolve2d(np.multiply(iy, iy), jedroSosedov, mode='same')
@@ -31,19 +31,19 @@ def lucaskanade ( im1 , im2 , N=3 ):
     # add some small number to all elements so there is no division by zero
     d += 1e-5 
     
-    u = -np.divide(
+    u = np.divide(
             np.subtract(
                 np.multiply(iy_y, ix_t), 
                 np.multiply(ix_y, iy_t)
             ),
-        d)
+        d) * -1
     
-    v = -np.divide(
+    v = np.divide(
         np.subtract(
             np.multiply(ix_x, iy_t), 
             np.multiply(ix_y, ix_t)
         ),
-    d)
+    d) * -1
     
     return u, v 
 

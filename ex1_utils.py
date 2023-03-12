@@ -93,7 +93,12 @@ def calc_derivatives (im1 , im2):
     #ix, iy = gaussderiv(np.divide(im1+im2,2) , sigma=0.6) 
  
     #applying an additional gaussian smoothing to the derivatives to reduce noise
-    ix, iy = gaussderiv(gausssmooth( np.divide(im1+im2,2), sigma=0.6) , sigma=0.6)     
+    ix, iy = gaussderiv(gausssmooth( np.divide(im1+im2,2), sigma=0.6) , sigma=1)
+
+    #ix1, iy1 = gaussderiv(im1, sigma=0.6)
+   #ix2, iy2 = gaussderiv(im2, sigma=0.6)
+    #ix = (ix1 + ix2) / 2
+    #iy = (iy1 + iy2) / 2
     
 
     return ix, iy, it
@@ -111,24 +116,55 @@ def plot_flow(u_vector, v_vector, img1, img2, kateri, filename='test', save=Fals
     fig, ax = plot.subplots(2, 2)
 
     ax[0][0].imshow(img1)
-    ax[0][0].set_title("Prva slika")
+    ax[0][0].set_title("im(t)")
     ax[0][1].imshow(img2)
-    ax[0][1].set_title("Naslednja slika")
+    ax[0][1].set_title("im(t+1)")
 
     show_flow(u_vector, v_vector, ax[1][0], type='field', set_aspect=True)
     show_flow(u_vector, v_vector, ax[1][1], type='angle', set_aspect=False)
 
     fig.tight_layout()
-
+    dodatek = ''
     #kako poimenovati plot
     if kateri == 'lk':
         fig.suptitle ('Lucas-Kanade optical flow')
+        dodatek = 'lk'
     elif kateri == 'hs':
         fig.suptitle ('Horn-Schunck optical flow')
+        dodatek = 'hs'
     else:
         fig.suptitle ('Figure 1')
+        dodatek = 'unknown'
 
     if save: 
-        fig.savefig(f'./plots/{filename}.png', bbox_inches='tight')
+        fig.savefig(f'./plots/{filename}-{dodatek}.png', bbox_inches='tight')
         
     plot.show()
+
+def cmb_plot_show(img1, img2, u_lk, v_lk, u_hs, v_hs, filename):
+    fig, ax = plot.subplots(3, 2)
+    fig.suptitle ('Optical flow results')
+
+    ax[0][0].imshow(img1)
+    ax[0][0].set_title("im(t)")
+    ax[0][1].imshow(img2)
+    ax[0][1].set_title("im(t+1)")
+
+    show_flow(u_lk, v_lk, ax[1][0], type='field', set_aspect=True)
+    ax[1][0].set_title("Lucas-Kanade flow field")
+    show_flow(u_lk, v_lk, ax[1][1], type='angle', set_aspect=False)
+    ax[1][1].set_title("Lucas-Kanade flow angle")
+
+
+    show_flow(u_hs, v_hs, ax[2][0], type='field', set_aspect=True)
+    ax[2][0].set_title("Horn-Schunck flow field")
+    show_flow(u_hs, v_hs, ax[2][1], type='angle', set_aspect=False)
+    ax[2][1].set_title("Horn-Schunck flow angle")
+    
+    fig.tight_layout()
+
+    fig.savefig(f'./plots/{filename}-oba.png')
+
+    plot.show()
+
+    

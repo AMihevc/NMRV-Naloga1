@@ -1,7 +1,6 @@
 from ex1_utils import *
 import numpy as np
 from scipy.signal import convolve2d 
-from sklearn.metrics.pairwise import cosine_similarity
 
 def hornschuck(img1, img2, n_iters, lmbd ):
     #im1 - first image matrix (grayscale)

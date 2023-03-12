@@ -35,16 +35,16 @@ rnd_img2 = rotate_image(rnd_img2, -1)
 rnd_img1 = rnd_img1 / 255
 rnd_img2 = rnd_img2 / 255
 
-# #call lucas-kanade
-# u_lk , v_lk = lucaskanade(rnd_img1, rnd_img2, 3)
+#call lucas-kanade
+u_lk , v_lk = lucaskanade(rnd_img1, rnd_img2, 10)
 
-# #display lucas-kanade flow and the images
-# plot_flow(u_lk, v_lk, rnd_img1, rnd_img2, kateri='lk')
+#display lucas-kanade flow and the images
+plot_flow(u_lk, v_lk, rnd_img1, rnd_img2, kateri='lk')
 
 #TODO: Horn-Schunck
 
 #call Horn-Schunck
-u_hs, v_hs = hornschuck(rnd_img1, rnd_img2, 10000, lmbd=0.5)
+u_hs, v_hs = hornschuck(rnd_img1, rnd_img2, 1000, lmbd=0.5)
 
 #dispaly Horn-Schunck flow and the images
 plot_flow(u_hs, v_hs, rnd_img1, rnd_img2, kateri='hs')

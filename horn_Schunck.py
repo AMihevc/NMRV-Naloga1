@@ -30,13 +30,8 @@ def hornschuck(img1, img2, n_iters, lmbd ):
     #the D matrix 
     d = np.square(ix) + np.square(iy) + lmbd
 
-    #check for similarity of u_a with u or v_a with v
-    similarity = 0
-    #number of elements for similarity caluclations 
-    nmuberofElements = ix.shape[0] * ix.shape[1]
-    
-
     #iteration loop
+    debug = 0
     for i in range(n_iters):
 
         #convolution
@@ -50,14 +45,6 @@ def hornschuck(img1, img2, n_iters, lmbd ):
         u = np.subtract(u_a, np.multiply(ix, p_div_d))
         v = np.subtract(v_a, np.multiply(iy, p_div_d))
 
-
-        #calcualte new similarity
-        similarity = max( 
-            round(np.sum(cosine_similarity(u, u_a)) / nmuberofElements, 8), 
-            round(np.sum(cosine_similarity(v, v_a)) / nmuberofElements, 8)
-            )
-        # Check if similarity is more than 0.6 and break if true 
-        if similarity > 0.6:
-            break 
-
+    
+    #print("Horn-Schunck iterations: " + str(debug))
     return u, v
